@@ -40,7 +40,7 @@
     _args = nil;
     bool isLocalFile = [file hasPrefix:@"file://"] || [file hasPrefix:@"/"];
     
-    NSURL *url = [file hasPrefix:@"file://"] ? [NSURL fileURLWithPath:[file substringFromIndex:7]] :
+    NSURL *url = [file hasPrefix:@"file://"] ? [NSURL URLWithString:file] :
       ( [file hasPrefix:@"/"] ? [NSURL fileURLWithPath:file] : [NSURL URLWithString:file] );
     
     if ([@"data" isEqualToString:call.method]) {
