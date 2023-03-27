@@ -112,15 +112,18 @@
     }
     
     if( format <= 1 ) {
-        UIImage *thumbnail = [UIImage imageWithCGImage:cgImage];
-        
-        CGImageRelease(cgImage);  // CGImageRef won't be released by ARC
-        
-        if( format == 0 ) {
-            CGFloat fQuality = ( CGFloat) ( quality * 0.01 );
-            return UIImageJPEGRepresentation( thumbnail, fQuality );
-        } else {
-            return UIImagePNGRepresentation( thumbnail );
+         @autoreleasepool {
+            
+            UIImage *thumbnail = [UIImage imageWithCGImage:cgImage];
+            
+            CGImageRelease(cgImage);  // CGImageRef won't be released by ARC
+            
+            if( format == 0 ) {
+                CGFloat fQuality = ( CGFloat) ( quality * 0.01 );
+                return UIImageJPEGRepresentation( thumbnail, fQuality );
+            } else {
+                return UIImagePNGRepresentation( thumbnail );
+            }
         }
     } else {
         CGColorSpaceRef colorSpace = CGImageGetColorSpace(cgImage);
